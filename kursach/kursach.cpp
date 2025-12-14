@@ -17,7 +17,6 @@ struct Graph {
     int E;
 };
 
-
 struct AdjacencyMatrix {
     int matrix[50][50];
     string vertices[50];
@@ -113,21 +112,6 @@ int find_index(Graph* g, string vertex) {
     return -1;
 }
 
-void display_menu() {
-    cout << "\nCourse Project - Graph Algorithms" << endl;
-    cout << "1) Load graph from file" << endl;
-    cout << "2) Print graph" << endl;
-    cout << "3) Breadth-First Search (BFS)" << endl;
-    cout << "4) Depth-First Search (DFS)" << endl;
-    cout << "5) Sort edges" << endl;
-    cout << "6) Graph representations" << endl;
-    cout << "7) Disjoint Set Union (DSU) demo" << endl;
-    cout << "8) Kruskal's Algorithm" << endl;
-    cout << "9) Save graph to file" << endl;
-    cout << "0) Exit" << endl;
-    cout << "Your choice: ";
-}
-
 Graph* get_graph_from_file(string filename) {
     ifstream file(filename);
     if (!file.is_open()) {
@@ -177,7 +161,7 @@ void free_graph(Graph* graph) {
 
 void insertion_sort(Graph* graph) {
     if (!graph) {
-        cout << "Graph is not created!" << endl;
+        cout << "Graph not created!" << endl;
         return;
     }
     for (int i = 1; i < graph->E; i++) {
@@ -193,11 +177,13 @@ void insertion_sort(Graph* graph) {
 
 void print_graph(Graph* g) {
     if (!g) {
-        cout << "Graph is not loaded!" << endl;
+        cout << "Graph not loaded!" << endl;
         return;
     }
 
-    cout << "\nGraph" << endl;
+    cout << "\n======================================" << endl;
+    cout << "GRAPH" << endl;
+    cout << "======================================" << endl;
     cout << "Vertices: " << g->V << ", Edges: " << g->E << endl;
 
     for (int i = 0; i < g->V; i++) {
@@ -235,7 +221,7 @@ int get_neighbors(Graph* g, string vertex, string neighbors[]) {
 
 void bfs(Graph* g, string start) {
     if (!g) {
-        cout << "Graph is not loaded!" << endl;
+        cout << "Graph not loaded!" << endl;
         return;
     }
 
@@ -252,9 +238,11 @@ void bfs(Graph* g, string start) {
     visited[start_idx] = true;
     q.enqueue(start);
 
-    cout << "\nBreadth-First Search (BFS)" << endl;
+    cout << "\n======================================" << endl;
+    cout << "BREADTH-FIRST SEARCH (BFS)" << endl;
+    cout << "======================================" << endl;
     cout << "Starting from vertex: " << start << endl;
-    cout << "Order: ";
+    cout << "Traversal order: ";
 
     while (!q.isEmpty()) {
         string current = q.dequeue();
@@ -276,7 +264,7 @@ void bfs(Graph* g, string start) {
 
 void dfs(Graph* g, string start) {
     if (!g) {
-        cout << "Graph is not loaded!" << endl;
+        cout << "Graph not loaded!" << endl;
         return;
     }
 
@@ -292,9 +280,11 @@ void dfs(Graph* g, string start) {
 
     s.push(start);
 
-    cout << "\nDepth-First Search (DFS)" << endl;
+    cout << "\n======================================" << endl;
+    cout << "DEPTH-FIRST SEARCH (DFS)" << endl;
+    cout << "======================================" << endl;
     cout << "Starting from vertex: " << start << endl;
-    cout << "Order: ";
+    cout << "Traversal order: ";
 
     while (!s.isEmpty()) {
         string current = s.pop();
@@ -346,11 +336,13 @@ AdjacencyMatrix* graph_to_adjacency_matrix(Graph* g) {
 
 void print_adjacency_matrix(AdjacencyMatrix* adj) {
     if (!adj) {
-        cout << "Adjacency matrix is not created!" << endl;
+        cout << "Matrix not created!" << endl;
         return;
     }
 
-    cout << "\nAdjacency Matrix" << endl;
+    cout << "\n======================================" << endl;
+    cout << "ADJACENCY MATRIX" << endl;
+    cout << "======================================" << endl;
 
     cout << "   ";
     for (int i = 0; i < adj->V; i++) {
@@ -400,11 +392,13 @@ AdjacencyList* graph_to_adjacency_list(Graph* g) {
 
 void print_adjacency_list(AdjacencyList* adj_list) {
     if (!adj_list) {
-        cout << "Adjacency list is not created!" << endl;
+        cout << "Adjacency list not created!" << endl;
         return;
     }
 
-    cout << "\nAdjacency List" << endl;
+    cout << "\n======================================" << endl;
+    cout << "ADJACENCY LIST" << endl;
+    cout << "======================================" << endl;
     for (int i = 0; i < adj_list->V; i++) {
         cout << adj_list->vertices[i] << " -> ";
 
@@ -469,11 +463,13 @@ IncidenceMatrix* graph_to_incidence_matrix(Graph* g) {
 
 void print_incidence_matrix(IncidenceMatrix* inc) {
     if (!inc) {
-        cout << "Incidence matrix is not created!" << endl;
+        cout << "Incidence matrix not created!" << endl;
         return;
     }
 
-    cout << "\nIncidence Matrix" << endl;
+    cout << "\n======================================" << endl;
+    cout << "INCIDENCE MATRIX" << endl;
+    cout << "======================================" << endl;
 
     cout << "   ";
     for (int j = 0; j < inc->E; j++) {
@@ -487,59 +483,6 @@ void print_incidence_matrix(IncidenceMatrix* inc) {
             cout << inc->matrix[i][j] << "  ";
         }
         cout << endl;
-    }
-}
-
-void graph_representations(Graph* g) {
-    if (!g) {
-        cout << "Load a graph first!" << endl;
-        return;
-    }
-
-    int choice;
-    cout << "\nGraph Representations" << endl;
-    cout << "1) Adjacency Matrix" << endl;
-    cout << "2) Adjacency List" << endl;
-    cout << "3) Incidence Matrix" << endl;
-    cout << "4) All three representations" << endl;
-    cout << "Your choice: ";
-    cin >> choice;
-
-    switch (choice) {
-    case 1: {
-        AdjacencyMatrix* adj = graph_to_adjacency_matrix(g);
-        print_adjacency_matrix(adj);
-        delete adj;
-        break;
-    }
-    case 2: {
-        AdjacencyList* adj_list = graph_to_adjacency_list(g);
-        print_adjacency_list(adj_list);
-        free_adjacency_list(adj_list);
-        break;
-    }
-    case 3: {
-        IncidenceMatrix* inc = graph_to_incidence_matrix(g);
-        print_incidence_matrix(inc);
-        delete inc;
-        break;
-    }
-    case 4: {
-        AdjacencyMatrix* adj = graph_to_adjacency_matrix(g);
-        AdjacencyList* adj_list = graph_to_adjacency_list(g);
-        IncidenceMatrix* inc = graph_to_incidence_matrix(g);
-
-        print_adjacency_matrix(adj);
-        print_adjacency_list(adj_list);
-        print_incidence_matrix(inc);
-
-        delete adj;
-        free_adjacency_list(adj_list);
-        delete inc;
-        break;
-    }
-    default:
-        cout << "Invalid choice!" << endl;
     }
 }
 
@@ -581,50 +524,6 @@ void union_sets(DSU* dsu, Graph* g, string x, string y) {
     }
 }
 
-void dsu_demo(Graph* g) {
-    if (!g) {
-        cout << "Load a graph first!" << endl;
-        return;
-    }
-
-    DSU dsu;
-    make_set(&dsu, g);
-
-    cout << "\nDisjoint Set Union (DSU) Demo" << endl;
-    cout << "Initial sets (each vertex separately):" << endl;
-    for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": representative = "
-            << find_set(&dsu, g, g->vertices[i]) << endl;
-    }
-    cout << "\nMerging A and B..." << endl;
-    union_sets(&dsu, g, "A", "B");
-    cout << "After union(A, B):" << endl;
-    for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": representative = "
-            << find_set(&dsu, g, g->vertices[i]) << endl;
-    }
-
-    cout << "\nMerging C and D..." << endl;
-    union_sets(&dsu, g, "C", "D");
-    cout << "After union(C, D):" << endl;
-    for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": representative = "
-            << find_set(&dsu, g, g->vertices[i]) << endl;
-    }
-
-    cout << "\nMerging sets (A,B) and (C,D)..." << endl;
-    union_sets(&dsu, g, "A", "C");
-    cout << "After union(A, C):" << endl;
-    for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": representative = "
-            << find_set(&dsu, g, g->vertices[i]) << endl;
-    }
-}
-
-bool compare_edges(Edge a, Edge b) {
-    return a.weight < b.weight;
-}
-
 void sort_edges_for_kruskal(Graph* g) {
     for (int i = 0; i < g->E - 1; i++) {
         for (int j = 0; j < g->E - i - 1; j++) {
@@ -637,10 +536,9 @@ void sort_edges_for_kruskal(Graph* g) {
     }
 }
 
-// Kruskal's Algorithm
 void kruskal_mst(Graph* g) {
     if (!g) {
-        cout << "Load a graph first!" << endl;
+        cout << "Graph not loaded!" << endl;
         return;
     }
 
@@ -658,14 +556,16 @@ void kruskal_mst(Graph* g) {
     int result_size = 0;
     int total_weight = 0;
 
-    cout << "\nKruskal's Algorithm" << endl;
-    cout << "Sorted edges:" << endl;
+    cout << "\n======================================" << endl;
+    cout << "KRUSKAL'S ALGORITHM" << endl;
+    cout << "======================================" << endl;
+    cout << "Edges sorted by ascending weight:" << endl;
     for (int i = 0; i < g->E; i++) {
         cout << g->edges[i].source << "-" << g->edges[i].destination
-            << " (" << g->edges[i].weight << ")" << endl;
+            << " (weight: " << g->edges[i].weight << ")" << endl;
     }
 
-    cout << "\nBuilding Minimum Spanning Tree:" << endl;
+    cout << "\nBuilding minimum spanning tree:" << endl;
     for (int i = 0; i < g->E; i++) {
         string u = g->edges[i].source;
         string v = g->edges[i].destination;
@@ -679,7 +579,8 @@ void kruskal_mst(Graph* g) {
                 << " (weight: " << g->edges[i].weight << ")" << endl;
         }
         else {
-            cout << "Skip edge:" << u << " " << v << endl;
+            cout << "Skip edge: " << u << " " << v
+                << " (forms a cycle)" << endl;
         }
 
         if (result_size == g->V - 1) {
@@ -688,163 +589,102 @@ void kruskal_mst(Graph* g) {
     }
 
     if (result_size < g->V - 1) {
-        cout << "\nCannot build a spanning tree." << endl;
+        cout << "\nCannot build spanning tree (graph is disconnected)" << endl;
         return;
     }
 
-    for (int i = 0; i < result_size - 1; i++) {
-        for (int j = 0; j < result_size - i - 1; j++) {
-            if (result[j].source > result[j + 1].source ||
-                (result[j].source == result[j + 1].source &&
-                    result[j].destination > result[j + 1].destination)) {
-                Edge temp = result[j];
-                result[j] = result[j + 1];
-                result[j + 1] = temp;
-            }
-        }
-    }
-
-    cout << "\nMinimum Spanning Tree" << endl;
-    cout << "Edges in MST:" << endl;
+    cout << "\n======================================" << endl;
+    cout << "RESULT: MINIMUM SPANNING TREE" << endl;
+    cout << "======================================" << endl;
+    cout << "Edges of minimum spanning tree:" << endl;
     for (int i = 0; i < result_size; i++) {
-        cout << result[i].source << " " << result[i].destination << endl;
+        cout << result[i].source << " - " << result[i].destination
+            << " (weight: " << result[i].weight << ")" << endl;
     }
-    cout << "Total weight: " << total_weight << endl;
+    cout << "\nTotal weight: " << total_weight << endl;
 }
 
-void save_graph_to_file(Graph* g, string filename) {
-    if (!g) {
-        cout << "Graph is not loaded!" << endl;
+void process_all_operations(string filename, string start_vertex = "A") {
+    cout << "======================================" << endl;
+    cout << "AUTOMATIC GRAPH PROCESSING" << endl;
+    cout << "File: " << filename << endl;
+    cout << "Starting vertex: " << start_vertex << endl;
+    cout << "======================================" << endl;
+
+    Graph* graph = get_graph_from_file(filename);
+
+    if (!graph) {
+        cout << "Failed to load graph!" << endl;
         return;
     }
 
-    ofstream file(filename);
-    if (!file.is_open()) {
-        cout << "Error creating file!" << endl;
-        return;
+    cout << "Graph loaded successfully!" << endl;
+    cout << "Vertices: " << graph->V << ", Edges: " << graph->E << endl;
+
+    print_graph(graph);
+
+    bfs(graph, start_vertex);
+
+    dfs(graph, start_vertex);
+
+    AdjacencyMatrix* adj_matrix = graph_to_adjacency_matrix(graph);
+    print_adjacency_matrix(adj_matrix);
+    delete adj_matrix;
+
+    AdjacencyList* adj_list = graph_to_adjacency_list(graph);
+    print_adjacency_list(adj_list);
+    free_adjacency_list(adj_list);
+
+    IncidenceMatrix* inc_matrix = graph_to_incidence_matrix(graph);
+    print_incidence_matrix(inc_matrix);
+    delete inc_matrix;
+
+    cout << "\n======================================" << endl;
+    cout << "EDGE SORTING" << endl;
+    cout << "======================================" << endl;
+    cout << "Original edges:" << endl;
+    for (int i = 0; i < graph->E; i++) {
+        cout << graph->edges[i].source << "-" << graph->edges[i].destination
+            << " (weight: " << graph->edges[i].weight << ")" << endl;
     }
 
-    for (int i = 0; i < g->V; i++) {
-        file << g->vertices[i] << " ";
-    }
-    file << endl;
-
-    int matrix[50][50] = { 0 };
-
-    for (int i = 0; i < g->E; i++) {
-        int src_idx = find_index(g, g->edges[i].source);
-        int dest_idx = find_index(g, g->edges[i].destination);
-        matrix[src_idx][dest_idx] = g->edges[i].weight;
-        matrix[dest_idx][src_idx] = g->edges[i].weight;
+    insertion_sort(graph);
+    cout << "\nSorted edges (ascending by weight):" << endl;
+    for (int i = 0; i < graph->E; i++) {
+        cout << graph->edges[i].source << "-" << graph->edges[i].destination
+            << " (weight: " << graph->edges[i].weight << ")" << endl;
     }
 
-    for (int i = 0; i < g->V; i++) {
-        for (int j = 0; j < g->V; j++) {
-            file << matrix[i][j] << " ";
-        }
-        file << endl;
-    }
+    kruskal_mst(graph);
 
-    file.close();
-    cout << "Graph saved to file: " << filename << endl;
+    free_graph(graph);
+
+    cout << "\n======================================" << endl;
+    cout << "PROCESSING COMPLETE" << endl;
+    cout << "======================================" << endl;
 }
-
 
 int main() {
     setlocale(0, "");
-    int choice;
+
     string filename;
-    Graph* graph = nullptr;
+    string start_vertex;
 
-    while (true) {
-        display_menu();
-        cin >> choice;
+    cout << "Enter graph file name: ";
+    cin >> filename;
 
-        switch (choice) {
-        case 1:
-            cout << "Enter filename: ";
-            cin >> filename;
-            if (graph) free_graph(graph);
-            graph = get_graph_from_file(filename);
-            if (graph) {
-                cout << "Graph loaded successfully!" << endl;
-                cout << "Vertices: " << graph->V << ", Edges: " << graph->E << endl;
-            }
-            break;
+    cout << "Enter starting vertex (default A): ";
+    cin >> start_vertex;
 
-        case 2:
-            print_graph(graph);
-            break;
-
-        case 3:
-            if (graph) {
-                string start;
-                cout << "Enter starting vertex for BFS: ";
-                cin >> start;
-                bfs(graph, start);
-            }
-            else {
-                cout << "Load a graph first!" << endl;
-            }
-            break;
-
-        case 4:
-            if (graph) {
-                string start;
-                cout << "Enter starting vertex for DFS: ";
-                cin >> start;
-                dfs(graph, start);
-            }
-            else {
-                cout << "Load a graph first!" << endl;
-            }
-            break;
-
-        case 5:
-            if (graph) {
-                cout << "Original graph:" << endl;
-                print_graph(graph);
-                insertion_sort(graph);
-                cout << "\nGraph with edges sorted by weight:" << endl;
-                print_graph(graph);
-            }
-            else {
-                cout << "Load a graph first!" << endl;
-            }
-            break;
-
-        case 6:
-            graph_representations(graph);
-            break;
-
-        case 7:
-            dsu_demo(graph);
-            break;
-
-        case 8:
-            kruskal_mst(graph);
-            break;
-
-        case 9:
-            if (graph) {
-                string save_filename;
-                cout << "Enter filename to save: ";
-                cin >> save_filename;
-                save_graph_to_file(graph, save_filename);
-            }
-            else {
-                cout << "Load a graph first!" << endl;
-            }
-            break;
-
-        case 0:
-            cout << "Exiting..." << endl;
-            if (graph) free_graph(graph);
-            return 0;
-
-        default:
-            cout << "Invalid choice!" << endl;
-            break;
-        }
+    if (start_vertex.empty()) {
+        start_vertex = "A";
     }
+
+    process_all_operations(filename, start_vertex);
+
+    cout << "\nPress Enter to exit...";
+    cin.ignore();
+    cin.get();
+
+    return 0;
 }
