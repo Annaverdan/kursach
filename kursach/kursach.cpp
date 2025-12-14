@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -114,24 +114,24 @@ int find_index(Graph* g, string vertex) {
 }
 
 void display_menu() {
-    cout << "\nКурсовая" << endl;
-    cout << "1) Загрузить граф из файла" << endl;
-    cout << "2) Вывести граф" << endl;
-    cout << "3) Обход графа в ширину" << endl;
-    cout << "4) Обход графа в глубину " << endl;
-    cout << "5) Сортировка рёбер" << endl;
-    cout << "6) Хранение графов" << endl;
-    cout << "7) Система непересекающихся множеств" << endl;
-    cout << "8) Алгоритм Краскала" << endl;
-    cout << "9) Сохранить граф в файл" << endl;
-    cout << "0) Выход" << endl;
-    cout << "Выбор: ";
+    cout << "\nCourse Project - Graph Algorithms" << endl;
+    cout << "1) Load graph from file" << endl;
+    cout << "2) Print graph" << endl;
+    cout << "3) Breadth-First Search (BFS)" << endl;
+    cout << "4) Depth-First Search (DFS)" << endl;
+    cout << "5) Sort edges" << endl;
+    cout << "6) Graph representations" << endl;
+    cout << "7) Disjoint Set Union (DSU) demo" << endl;
+    cout << "8) Kruskal's Algorithm" << endl;
+    cout << "9) Save graph to file" << endl;
+    cout << "0) Exit" << endl;
+    cout << "Your choice: ";
 }
 
 Graph* get_graph_from_file(string filename) {
     ifstream file(filename);
     if (!file.is_open()) {
-        cout << "Ошибка открытия файла!" << endl;
+        cout << "Error opening file!" << endl;
         return nullptr;
     }
 
@@ -177,7 +177,7 @@ void free_graph(Graph* graph) {
 
 void insertion_sort(Graph* graph) {
     if (!graph) {
-        cout << "Граф не создан!" << endl;
+        cout << "Graph is not created!" << endl;
         return;
     }
     for (int i = 1; i < graph->E; i++) {
@@ -193,12 +193,12 @@ void insertion_sort(Graph* graph) {
 
 void print_graph(Graph* g) {
     if (!g) {
-        cout << "Граф не загружен!" << endl;
+        cout << "Graph is not loaded!" << endl;
         return;
     }
 
-    cout << "\nГраф" << endl;
-    cout << "Вершин: " << g->V << ", Рёбер: " << g->E << endl;
+    cout << "\nGraph" << endl;
+    cout << "Vertices: " << g->V << ", Edges: " << g->E << endl;
 
     for (int i = 0; i < g->V; i++) {
         string vertex = g->vertices[i];
@@ -213,7 +213,7 @@ void print_graph(Graph* g) {
             }
         }
 
-        if (!has_edges) cout << "нет рёбер";
+        if (!has_edges) cout << "no edges";
         cout << endl;
     }
 }
@@ -235,13 +235,13 @@ int get_neighbors(Graph* g, string vertex, string neighbors[]) {
 
 void bfs(Graph* g, string start) {
     if (!g) {
-        cout << "Граф не загружен!" << endl;
+        cout << "Graph is not loaded!" << endl;
         return;
     }
 
     int start_idx = find_index(g, start);
     if (start_idx == -1) {
-        cout << "Вершина " << start << " не найдена!" << endl;
+        cout << "Vertex " << start << " not found!" << endl;
         return;
     }
 
@@ -252,9 +252,9 @@ void bfs(Graph* g, string start) {
     visited[start_idx] = true;
     q.enqueue(start);
 
-    cout << "\nОбход в ширину" << endl;
-    cout << "Начинаем с вершины: " << start << endl;
-    cout << "Порядок: ";
+    cout << "\nBreadth-First Search (BFS)" << endl;
+    cout << "Starting from vertex: " << start << endl;
+    cout << "Order: ";
 
     while (!q.isEmpty()) {
         string current = q.dequeue();
@@ -276,13 +276,13 @@ void bfs(Graph* g, string start) {
 
 void dfs(Graph* g, string start) {
     if (!g) {
-        cout << "Граф не загружен!" << endl;
+        cout << "Graph is not loaded!" << endl;
         return;
     }
 
     int start_idx = find_index(g, start);
     if (start_idx == -1) {
-        cout << "Вершина " << start << " не найдена!" << endl;
+        cout << "Vertex " << start << " not found!" << endl;
         return;
     }
 
@@ -292,9 +292,9 @@ void dfs(Graph* g, string start) {
 
     s.push(start);
 
-    cout << "\nОбход в глубину" << endl;
-    cout << "Начинаем с вершины: " << start << endl;
-    cout << "Порядок: ";
+    cout << "\nDepth-First Search (DFS)" << endl;
+    cout << "Starting from vertex: " << start << endl;
+    cout << "Order: ";
 
     while (!s.isEmpty()) {
         string current = s.pop();
@@ -346,11 +346,11 @@ AdjacencyMatrix* graph_to_adjacency_matrix(Graph* g) {
 
 void print_adjacency_matrix(AdjacencyMatrix* adj) {
     if (!adj) {
-        cout << "Матрица не создана!" << endl;
+        cout << "Adjacency matrix is not created!" << endl;
         return;
     }
 
-    cout << "\nМатрица смежности" << endl;
+    cout << "\nAdjacency Matrix" << endl;
 
     cout << "   ";
     for (int i = 0; i < adj->V; i++) {
@@ -400,17 +400,17 @@ AdjacencyList* graph_to_adjacency_list(Graph* g) {
 
 void print_adjacency_list(AdjacencyList* adj_list) {
     if (!adj_list) {
-        cout << "Список смежности не создан!" << endl;
+        cout << "Adjacency list is not created!" << endl;
         return;
     }
 
-    cout << "\nСписок смежности" << endl;
+    cout << "\nAdjacency List" << endl;
     for (int i = 0; i < adj_list->V; i++) {
         cout << adj_list->vertices[i] << " -> ";
 
         AdjacencyList::ListNode* current = adj_list->list[i];
         if (!current) {
-            cout << "нет рёбер";
+            cout << "no edges";
         }
         else {
             while (current) {
@@ -469,11 +469,11 @@ IncidenceMatrix* graph_to_incidence_matrix(Graph* g) {
 
 void print_incidence_matrix(IncidenceMatrix* inc) {
     if (!inc) {
-        cout << "Матрица инцидентности не создана!" << endl;
+        cout << "Incidence matrix is not created!" << endl;
         return;
     }
 
-    cout << "\nИнциндентность" << endl;
+    cout << "\nIncidence Matrix" << endl;
 
     cout << "   ";
     for (int j = 0; j < inc->E; j++) {
@@ -492,17 +492,17 @@ void print_incidence_matrix(IncidenceMatrix* inc) {
 
 void graph_representations(Graph* g) {
     if (!g) {
-        cout << "Сначала загрузите граф!" << endl;
+        cout << "Load a graph first!" << endl;
         return;
     }
 
     int choice;
-    cout << "\nКак запишем?" << endl;
-    cout << "1) Матрица смежности" << endl;
-    cout << "2) Список смежности" << endl;
-    cout << "3) Матрица инцидентности" << endl;
-    cout << "4) Все три представления" << endl;
-    cout << "Выбор: ";
+    cout << "\nGraph Representations" << endl;
+    cout << "1) Adjacency Matrix" << endl;
+    cout << "2) Adjacency List" << endl;
+    cout << "3) Incidence Matrix" << endl;
+    cout << "4) All three representations" << endl;
+    cout << "Your choice: ";
     cin >> choice;
 
     switch (choice) {
@@ -539,7 +539,7 @@ void graph_representations(Graph* g) {
         break;
     }
     default:
-        cout << "Неверный выбор!" << endl;
+        cout << "Invalid choice!" << endl;
     }
 }
 
@@ -583,40 +583,40 @@ void union_sets(DSU* dsu, Graph* g, string x, string y) {
 
 void dsu_demo(Graph* g) {
     if (!g) {
-        cout << "Сначала загрузите граф!" << endl;
+        cout << "Load a graph first!" << endl;
         return;
     }
 
     DSU dsu;
     make_set(&dsu, g);
 
-    cout << "\n DSU" << endl;
-    cout << "Исходные множества (каждая вершина отдельно):" << endl;
+    cout << "\nDisjoint Set Union (DSU) Demo" << endl;
+    cout << "Initial sets (each vertex separately):" << endl;
     for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": представитель = "
+        cout << g->vertices[i] << ": representative = "
             << find_set(&dsu, g, g->vertices[i]) << endl;
     }
-    cout << "\nОбъединяем A и B..." << endl;
+    cout << "\nMerging A and B..." << endl;
     union_sets(&dsu, g, "A", "B");
-    cout << "После union(A, B):" << endl;
+    cout << "After union(A, B):" << endl;
     for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": представитель = "
+        cout << g->vertices[i] << ": representative = "
             << find_set(&dsu, g, g->vertices[i]) << endl;
     }
 
-    cout << "\nОбъединяем C и D..." << endl;
+    cout << "\nMerging C and D..." << endl;
     union_sets(&dsu, g, "C", "D");
-    cout << "После union(C, D):" << endl;
+    cout << "After union(C, D):" << endl;
     for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": представитель = "
+        cout << g->vertices[i] << ": representative = "
             << find_set(&dsu, g, g->vertices[i]) << endl;
     }
 
-    cout << "\nОбъединяем множества (A,B) и (C,D)..." << endl;
+    cout << "\nMerging sets (A,B) and (C,D)..." << endl;
     union_sets(&dsu, g, "A", "C");
-    cout << "После union(A, C):" << endl;
+    cout << "After union(A, C):" << endl;
     for (int i = 0; i < g->V; i++) {
-        cout << g->vertices[i] << ": представитель = "
+        cout << g->vertices[i] << ": representative = "
             << find_set(&dsu, g, g->vertices[i]) << endl;
     }
 }
@@ -637,15 +637,15 @@ void sort_edges_for_kruskal(Graph* g) {
     }
 }
 
-//  Алг Краскала
+// Kruskal's Algorithm
 void kruskal_mst(Graph* g) {
     if (!g) {
-        cout << "Сначала загрузите граф!" << endl;
+        cout << "Load a graph first!" << endl;
         return;
     }
 
     if (g->E == 0) {
-        cout << "Граф не содержит рёбер!" << endl;
+        cout << "Graph contains no edges!" << endl;
         return;
     }
 
@@ -658,14 +658,14 @@ void kruskal_mst(Graph* g) {
     int result_size = 0;
     int total_weight = 0;
 
-    cout << "\nАлгоритм Крускала" << endl;
-    cout << "Отсортированные рёбра:" << endl;
+    cout << "\nKruskal's Algorithm" << endl;
+    cout << "Sorted edges:" << endl;
     for (int i = 0; i < g->E; i++) {
         cout << g->edges[i].source << "-" << g->edges[i].destination
             << " (" << g->edges[i].weight << ")" << endl;
     }
 
-    cout << "\nПостроение мин остового дерева:" << endl;
+    cout << "\nBuilding Minimum Spanning Tree:" << endl;
     for (int i = 0; i < g->E; i++) {
         string u = g->edges[i].source;
         string v = g->edges[i].destination;
@@ -675,11 +675,11 @@ void kruskal_mst(Graph* g) {
             total_weight += g->edges[i].weight;
             union_sets(&dsu, g, u, v);
 
-            cout << "Добавляем ребро: " << u << " " << v
-                << " (вес: " << g->edges[i].weight << ")" << endl;
+            cout << "Add edge: " << u << " " << v
+                << " (weight: " << g->edges[i].weight << ")" << endl;
         }
         else {
-            cout << "Пропускаем ребро:" << u << " " << v << endl;
+            cout << "Skip edge:" << u << " " << v << endl;
         }
 
         if (result_size == g->V - 1) {
@@ -688,7 +688,7 @@ void kruskal_mst(Graph* g) {
     }
 
     if (result_size < g->V - 1) {
-        cout << "\nНельзя построить остовное дерево." << endl;
+        cout << "\nCannot build a spanning tree." << endl;
         return;
     }
 
@@ -704,23 +704,23 @@ void kruskal_mst(Graph* g) {
         }
     }
 
-    cout << "\nМинимальное остовое дерево" << endl;
-    cout << "Рёбра минимального остового:" << endl;
+    cout << "\nMinimum Spanning Tree" << endl;
+    cout << "Edges in MST:" << endl;
     for (int i = 0; i < result_size; i++) {
         cout << result[i].source << " " << result[i].destination << endl;
     }
-    cout << "Суммарный вес: " << total_weight << endl;
+    cout << "Total weight: " << total_weight << endl;
 }
 
 void save_graph_to_file(Graph* g, string filename) {
     if (!g) {
-        cout << "Граф не загружен!" << endl;
+        cout << "Graph is not loaded!" << endl;
         return;
     }
 
     ofstream file(filename);
     if (!file.is_open()) {
-        cout << "Ошибка создания файла!" << endl;
+        cout << "Error creating file!" << endl;
         return;
     }
 
@@ -746,7 +746,7 @@ void save_graph_to_file(Graph* g, string filename) {
     }
 
     file.close();
-    cout << "Граф сохранён в файл: " << filename << endl;
+    cout << "Graph saved to file: " << filename << endl;
 }
 
 
@@ -762,13 +762,13 @@ int main() {
 
         switch (choice) {
         case 1:
-            cout << "Введите имя файла: ";
+            cout << "Enter filename: ";
             cin >> filename;
             if (graph) free_graph(graph);
             graph = get_graph_from_file(filename);
             if (graph) {
-                cout << "Граф загружен успешно!" << endl;
-                cout << "Вершин: " << graph->V << ", Рёбер: " << graph->E << endl;
+                cout << "Graph loaded successfully!" << endl;
+                cout << "Vertices: " << graph->V << ", Edges: " << graph->E << endl;
             }
             break;
 
@@ -779,37 +779,37 @@ int main() {
         case 3:
             if (graph) {
                 string start;
-                cout << "Введите стартовую вершину для BFS: ";
+                cout << "Enter starting vertex for BFS: ";
                 cin >> start;
                 bfs(graph, start);
             }
             else {
-                cout << "Сначала загрузите граф!" << endl;
+                cout << "Load a graph first!" << endl;
             }
             break;
 
         case 4:
             if (graph) {
                 string start;
-                cout << "Введите стартовую вершину для DFS: ";
+                cout << "Enter starting vertex for DFS: ";
                 cin >> start;
                 dfs(graph, start);
             }
             else {
-                cout << "Сначала загрузите граф!" << endl;
+                cout << "Load a graph first!" << endl;
             }
             break;
 
         case 5:
             if (graph) {
-                cout << "Исходный граф:" << endl;
+                cout << "Original graph:" << endl;
                 print_graph(graph);
                 insertion_sort(graph);
-                cout << "\nОтсортированный граф (по весу рёбер):" << endl;
+                cout << "\nGraph with edges sorted by weight:" << endl;
                 print_graph(graph);
             }
             else {
-                cout << "Сначала загрузите граф!" << endl;
+                cout << "Load a graph first!" << endl;
             }
             break;
 
@@ -828,22 +828,22 @@ int main() {
         case 9:
             if (graph) {
                 string save_filename;
-                cout << "Введите имя файла для сохранения: ";
+                cout << "Enter filename to save: ";
                 cin >> save_filename;
                 save_graph_to_file(graph, save_filename);
             }
             else {
-                cout << "Сначала загрузите граф!" << endl;
+                cout << "Load a graph first!" << endl;
             }
             break;
 
         case 0:
-            cout << "Выход..." << endl;
+            cout << "Exiting..." << endl;
             if (graph) free_graph(graph);
             return 0;
 
         default:
-            cout << "Неверный выбор!" << endl;
+            cout << "Invalid choice!" << endl;
             break;
         }
     }
